@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!-- 配置文件至少使用下面的标签 -->
+    <!-- 1、jdbcConnection:如何连接目标数据库 -->
+    <!-- 2、javaModelGenerator:指定生成java模型对象所属的包 -->
+    <!-- 3、sqlMapGenerator:指定sql映射文件所属包和目标项目 -->
+    <!-- 4、javaClientGenerator(可选):指定目标包和目标项目生成的客户端接口和类 -->
+
+    <!--数据库驱动 -->
+    <!--<classPathEntry location="E:\initPath\mvn_repository\mysql\mysql-connector-java\5.1.44\mysql-connector-java-5.1.44.jar"/>-->
+    <!--<classPathEntry location="../m2Repository/com/ibm/db2/db2jcc4/1.6.0_9.7/db2jcc4-1.6.0_9.7.jar" />-->
+    <classPathEntry location="F:\db2jar\db2jcc_license_cu.jar" />
+    <classPathEntry location="F:\db2jar\db2jcc4.jar" />
+    <!--<classPathEntry location="F:\db2jar\db2java.jar" />-->
+
+
+
+    <!-- 注意每个context大标签的顺序 -->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <!-- field的注释重写 -->
+        <!--<commentGenerator type="com.zhoumj.generator.utils.MyCommentGenerator">-->
+        <commentGenerator >
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.ibm.db2.jcc.DB2Driver"
+                        connectionURL="jdbc:db2://192.168.2.191:50000/xyddb2"
+                        userId="xydbusi"
+                        password="xydbusi">
+        </jdbcConnection>
+
+        <!-- Java类型解析器不应该强制型对象字段BigDecimal的使用，这意味着整数类型(短、整型、长等)如果可能的话将被取代。 此功能是为了使数据库DECIMAL和NUMERIC列容易处理 -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.xyddb2.api.entity" targetProject="../mybatis-generator/src/main/java/">
+            <!-- enableSubPackages为true,则包会放在test.model.O2O(schema)中 -->
+            <!-- enableSubPackages为false,则包会放在test.model中 -->
+            <property name="enableSubPackages" value="false" />
+            <!-- Java模型生成器也应该对字符串进行trim操作。 这意味着任何字符串属性的setter方法将调用trim方法 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper"  targetProject="../mybatis-generator/src/main/resources/">
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.xyddb2.api.dao" targetProject="../mybatis-generator/src/main/java/">
+            <property name="enableSubPackages" value="false" />
+            <!-- 设置method的可见性 默认public;targetRunTime=MyBatis3时该属性不起作用 -->
+            <property name="exampleMethodVisibility" value="public" />
+            <!-- 设置生成的method的加上实体名称,默认default;targetRunTime=MyBatis3时该属性不起作用 -->
+            <property name="methodNameCalculator" value="extended" />
+        </javaClientGenerator>
+
+        <!-- 配置不生成Example -->
+        <!--domainObjectName="AuditInfo"-->
+        <table schema="XYDBUSI" tableName="SYS_ROLE"  enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+            <!-- false:按照驼峰原则;true:按照数据库的名字 -->
+            <property name="useActualColumnNames" value="true" />
+
+            <!--<generatedKey column="ID" sqlStatement="DB2" identity="true" />-->
+            <!--<columnOverride column="AUDIT_STATUS" jdbcType="VARCHAR" javaType="com.zhoumj.enumtype.AuditInfoStatusEnum" />-->
+            <!--<columnOverride column="AUDIT_CREATEDATE" property="createDate" jdbcType="TIMESTAMP" javaType="java.util.Date"/>-->
+            <!--<columnOverride column="AUDIT_UPDATEDATE" property="updateDate" jdbcType="TIMESTAMP" javaType="java.util.Date"/>-->
+            <!--<ignoreColumn column="AUDIT_REMARK" />-->
+        </table>
+
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyddb2.api.dao.SysRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.xyddb2.api.entity.SysRole" >
+    <id column="ROLEID" property="ROLEID" jdbcType="VARCHAR" />
+    <result column="ROLENAME" property="ROLENAME" jdbcType="VARCHAR" />
+    <result column="STATUS" property="STATUS" jdbcType="CHAR" />
+    <result column="CREATTIME" property="CREATTIME" jdbcType="VARCHAR" />
+    <result column="CREATOPER" property="CREATOPER" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLEID, ROLENAME, STATUS, CREATTIME, CREATOPER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from XYDBUSI.SYS_ROLE
+    where ROLEID = #{ROLEID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from XYDBUSI.SYS_ROLE
+    where ROLEID = #{ROLEID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xyddb2.api.entity.SysRole" >
+    insert into XYDBUSI.SYS_ROLE (ROLEID, ROLENAME, STATUS, 
+      CREATTIME, CREATOPER)
+    values (#{ROLEID,jdbcType=VARCHAR}, #{ROLENAME,jdbcType=VARCHAR}, #{STATUS,jdbcType=CHAR}, 
+      #{CREATTIME,jdbcType=VARCHAR}, #{CREATOPER,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xyddb2.api.entity.SysRole" >
+    insert into XYDBUSI.SYS_ROLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ROLEID != null" >
+        ROLEID,
+      </if>
+      <if test="ROLENAME != null" >
+        ROLENAME,
+      </if>
+      <if test="STATUS != null" >
+        STATUS,
+      </if>
+      <if test="CREATTIME != null" >
+        CREATTIME,
+      </if>
+      <if test="CREATOPER != null" >
+        CREATOPER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ROLEID != null" >
+        #{ROLEID,jdbcType=VARCHAR},
+      </if>
+      <if test="ROLENAME != null" >
+        #{ROLENAME,jdbcType=VARCHAR},
+      </if>
+      <if test="STATUS != null" >
+        #{STATUS,jdbcType=CHAR},
+      </if>
+      <if test="CREATTIME != null" >
+        #{CREATTIME,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATOPER != null" >
+        #{CREATOPER,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xyddb2.api.entity.SysRole" >
+    update XYDBUSI.SYS_ROLE
+    <set >
+      <if test="ROLENAME != null" >
+        ROLENAME = #{ROLENAME,jdbcType=VARCHAR},
+      </if>
+      <if test="STATUS != null" >
+        STATUS = #{STATUS,jdbcType=CHAR},
+      </if>
+      <if test="CREATTIME != null" >
+        CREATTIME = #{CREATTIME,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATOPER != null" >
+        CREATOPER = #{CREATOPER,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROLEID = #{ROLEID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xyddb2.api.entity.SysRole" >
+    update XYDBUSI.SYS_ROLE
+    set ROLENAME = #{ROLENAME,jdbcType=VARCHAR},
+      STATUS = #{STATUS,jdbcType=CHAR},
+      CREATTIME = #{CREATTIME,jdbcType=VARCHAR},
+      CREATOPER = #{CREATOPER,jdbcType=VARCHAR}
+    where ROLEID = #{ROLEID,jdbcType=VARCHAR}
+  </update>
+</mapper>
